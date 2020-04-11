@@ -1,0 +1,7 @@
+GET
+/api/enrollments
+{ 
+	"Studies": "Computer Science",
+	"Semester": 1 
+}
+?name=Kowalski

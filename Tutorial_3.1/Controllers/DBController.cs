@@ -13,6 +13,33 @@ namespace Tutorial_3._1.Controllers
     
     public class DBController : IStudentsDbService
     {
+        public bool CheckIndex(string index)
+        {
+            using (var client  = new SqlConnection(@"Data Source=db-mssql;Initial Catalog=s19696;Integrated Security=True"))
+            {
+                
+                using (var con = new SqlCommand())
+                {
+                    client.Open();
+                    con.Connection = client;
+                    con.CommandText = "select IndexNumber from Student where IndexNumber = @index;";
+                    con.Parameters.AddWithValue("index", index);
+
+                    var reader = con.ExecuteReader();
+                    if(reader.Read())
+                    {
+                        //returns true if the index number exists
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                   
+                }
+                
+            }
+        }
 
         public EnrollmentRequest EnrollStudent(EnrollmentRequest request)
         {

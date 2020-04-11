@@ -12,5 +12,7 @@ namespace Tutorial_3._1.Models.Services
         EnrollmentRequest EnrollStudent(EnrollmentRequest request);
         PromotionRequests PromoteStudent(PromotionRequests request);
 
+        bool CheckIndex(string index);
+
     }
 }

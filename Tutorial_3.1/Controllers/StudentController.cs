@@ -49,7 +49,8 @@ namespace Tutorial_3._1.Controllers
         [HttpGet("{id}")]
         public IActionResult GetStudent(string id)
         {
-            string studies = "";
+            var studies = new Studies();
+            var studyList = new List<Studies>();
             using (var client = new SqlConnection(@"Data Source=db-mssql;Initial Catalog=s19696;Integrated Security=True"))
             {
                 using (var con = new SqlCommand("StudentsForStudies", client) {CommandType = System.Data.CommandType.StoredProcedure})
@@ -67,17 +68,18 @@ namespace Tutorial_3._1.Controllers
                     var reader = con.ExecuteReader();
                     while (reader.Read())
                     {
-                        studies = $"First Name:{reader["FirstName"]} \n" +
-                            $"Last Name: {reader["LastName"]} \n" +
-                            $"Index Number: {reader["IndexNumber"]} \n" +
-                            $"Semester:{reader["Semester"]} \n" +
-                            $"Studies:{reader["Name"]} \n";
+                        studies.FirstName = reader["FirstName"].ToString();
+                        studies.LastName = reader["LastName"].ToString();
+                        studies.IndexNumber = reader["IndexNumber"].ToString();
+                        studies.Semester = reader["Semester"].ToString();
+                        studies.Study = reader["Study"].ToString();
+                        studyList.Add(studies);
                     }
 
                 }
 
             }
-            return Ok(studies);
+            return Ok(studyList);
 
         }
 
